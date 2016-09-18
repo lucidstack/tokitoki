@@ -16,7 +16,7 @@ defmodule Tokitoki.Mixfile do
   def application do
     [
       mod: {Tokitoki, []},
-      applications: [:hedwig, :hedwig_slack]
+      applications: [:hedwig, :hedwig_slack, :excountries]
     ]
   end
 
@@ -31,6 +31,9 @@ defmodule Tokitoki.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:hedwig, "~> 1.0.0-rc.4"},
-     {:hedwig_slack, "~> 0.1"}]
+     {:hedwig_slack, "~> 0.1"},
+     {:csv, "~> 1.4.3"},
+     {:excountries, "~> 0.0.3"},
+     {:poison, "~> 2.0", override: true}]
   end
 end
