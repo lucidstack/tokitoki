@@ -10,6 +10,7 @@ defmodule Tokitoki do
 
     children = [
       worker(Tokitoki.GreetingsRepo, [greetings_csv_path]),
+      worker(Tokitoki.DayLock, []),
       worker(Tokitoki.Robot, [])
     ]
 

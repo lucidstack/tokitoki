@@ -1,17 +1,20 @@
 defmodule Tokitoki.Responders.Greeting do
-  alias Tokitoki.{GreetingsRepo,CountryDiscovery}
+  alias Tokitoki.{GreetingsRepo,CountryDiscovery,DayLock}
   use Hedwig.Responder
 
   hear ~r/(good )?morning/i, msg do
-    greeting = GreetingsRepo.random_greeting
+    if DayLock.lock_today == :ok do
+      send msg, GreetingsRepo.random_greeting |> make_response
+    end
+  end
 
-    response = ""
+  def make_response greeting do
+    ""
     |> add_greeting(greeting["Greeting"])
     |> add_flag(greeting["Countries"])
     |> add_language(greeting["Language"])
-
-    send msg, response
   end
+
 
   defp add_greeting response, greeting do
     response <> greeting <> "! :wave:"
